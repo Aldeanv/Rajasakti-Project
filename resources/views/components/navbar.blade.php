@@ -8,7 +8,6 @@
                       <a href="/event" class="rounded-md py-2 px-4 text-sm font-semibold hover:bg-[#BCDC9A] hover:text-white">Event Program</a>
                       <a href="/galeri" class="rounded-md py-2 px-4 text-sm font-semibold hover:bg-[#BCDC9A] hover:text-white">Galeri</a>
                       <a href="/news" class="rounded-md py-2 px-4 text-sm font-semibold hover:bg-[#BCDC9A] hover:text-white">Berita</a>
-                      {{-- <a href="#" class="rounded-md py-2 px-4 text-sm font-semibold hover:bg-[#BCDC9A] hover:text-white">Klien</a> --}}
                       <a href="/about" class="rounded-md py-2 px-4 text-sm font-semibold hover:bg-[#BCDC9A] hover:text-white">Tentang Kami</a>
                   </div>
               </div>
@@ -46,7 +45,7 @@
               @can('view-dashboard')
               <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ __('Dashboard') }}</a>  
               @endcan
-              <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ __('Profile') }}</a>
+              <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ __('Profile') }}</a>
               <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ __('Log Out') }}</button>

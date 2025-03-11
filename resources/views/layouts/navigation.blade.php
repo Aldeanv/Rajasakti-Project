@@ -30,7 +30,7 @@
                     <x-dropdown-link :href="route('home')">
                         🏠 {{ __('Home') }}
                     </x-dropdown-link>
-                    <x-dropdown-link :href="route('profile.edit')">
+                    <x-dropdown-link :href="route('profile')">
                         👤 {{ __('Profile') }}
                     </x-dropdown-link>
                     <form method="POST" action="{{ route('logout') }}" class="mx-4">
@@ -68,7 +68,7 @@
                     <a href="{{ route('home') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">
                         🏠 {{ __('Home') }}
                     </a>
-                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">
+                    <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">
                         👤 {{ __('Profile') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="px-4">
