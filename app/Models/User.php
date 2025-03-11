@@ -48,9 +48,4 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function programs(): BelongsToMany
-    {
-        return $this->belongsToMany(Program::class, 'program_participants')->withTimestamps();
-    }
-
 }

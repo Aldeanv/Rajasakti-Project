@@ -26,7 +26,7 @@
                 @can('view-dashboard')
                 <x-dropdown-link :href="route('dashboard')">Dashboard</x-dropdown-link>
                 @endcan
-                <x-dropdown-link :href="route('profile.edit')">Profile</x-dropdown-link>
+                <x-dropdown-link :href="route('profile')">Profile</x-dropdown-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</x-dropdown-link>
