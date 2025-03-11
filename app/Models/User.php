@@ -48,4 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function programs()
+    {
+        return $this->belongsToMany(ProgramList::class, 'participants', 'email', 'program_title', 'email', 'title');
+    }
+
 }
