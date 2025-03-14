@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -17,10 +18,13 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $programs = $user->programs; // Pastikan relasi sudah dibuat di model User
+        $programs = $user->programs; // Ambil program yang telah user ikuti
 
-        return view('profile.profile', compact('user', 'programs'));
-    }
+        $certificateCount = $programs->whereNotNull('pivot.certificate')->count();
+        $materialCount = $programs->whereNotNull('pivot.material')->count();
+    
+        return view('profile.profile', compact('user', 'programs', 'certificateCount', 'materialCount'));
+    }    
 
     /**
      * Display the user's profile form.
@@ -68,4 +72,66 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function admin(Request $request)
+    {
+        $query = Participant::query();
+
+        if ($request->has('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('nip', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->has('program') && $request->program !== '') {
+            $query->where('program_title', $request->program);
+        }
+
+        $participants = $query->paginate(10);
+        $programs = Participant::select('program_title')->distinct()->pluck('program_title');
+
+        return view('dashboard.material', compact('participants', 'programs'));
+    }
+
+    public function uploadFiles(Request $request)
+    {
+        $request->validate([
+            'participant_id' => 'required|exists:participants,id',
+            'certificate' => 'nullable|mimes:pdf,jpg,png|max:2048',
+            'material' => 'nullable|mimes:pdf,docx,pptx|max:5120',
+        ]);
+
+        $participant = Participant::findOrFail($request->participant_id);
+
+        if ($request->hasFile('certificate')) {
+            $certificatePath = $request->file('certificate')->store('sertifikat' , 'public');
+            $participant->certificate = ($certificatePath);
+        }
+
+        if ($request->hasFile('material')) {
+            $materialPath = $request->file('material')->store('materials' , 'public');
+            $participant->material = ($materialPath);
+        }
+
+        $participant->save();
+
+        return redirect()->route('admin.programs.index')->with('success', 'File berhasil diunggah.');
+    }
+
+    public function downloadFile($type, $filename)
+    {
+        $path = '';
+
+        if ($type === 'certificate') {
+            $path = storage_path('app/public/sertifikat/' . $filename);
+        } elseif ($type === 'material') {
+            $path = storage_path('app/public/materials/' . $filename);
+        }
+
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        return response()->download($path);
+    }
+
 }

@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profiles', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/download/{type}/{filename}', [ProfileController::class, 'downloadFile'])->name('user.download');
+
 });
 
    /*
@@ -101,6 +103,9 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     })->name('participants.export');
 
     Route::post('/import-participants', [ParticipantController::class, 'import'])->name('participants.import');
+
+    Route::get('/material', [ProfileController::class, 'admin'])->name('admin.programs.index');
+    Route::post('/admin/upload', [ProfileController::class, 'uploadFiles'])->name('admin.upload.files');
 });
 
 // Route::get('/regis/{id}', function ($id) {

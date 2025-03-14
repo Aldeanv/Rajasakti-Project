@@ -11,7 +11,8 @@ class Participant extends Model
     use HasFactory;
     protected $fillable = [
         'program_title','nama', 'jenis_kelamin', 'nip', 'dinas', 'jabatan',
-        'pemda', 'alamat', 'telepon', 'email', 'bukti_pembayaran', 'qrcode_path'
+        'pemda', 'alamat', 'telepon', 'email', 'bukti_pembayaran', 
+        'qrcode_path', 'certificate', 'material'
     ];
 
     public function program()

@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('telepon');
             $table->string('email');
             $table->string('bukti_pembayaran')->nullable();
+            $table->string('certificate')->nullable();
+            $table->string('material')->nullable();
             $table->timestamps();
         });
     }
