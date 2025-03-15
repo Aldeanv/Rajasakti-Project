@@ -18,13 +18,16 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $programs = $user->programs; // Ambil program yang telah user ikuti
-
+        
+        // Ambil program yang telah diikuti user dan urutkan dari yang terbaru
+        $programs = $user->programs->sortByDesc('created_at');
+    
+        // Hitung jumlah sertifikat dan materi yang telah diunggah
         $certificateCount = $programs->whereNotNull('pivot.certificate')->count();
         $materialCount = $programs->whereNotNull('pivot.material')->count();
     
         return view('profile.profile', compact('user', 'programs', 'certificateCount', 'materialCount'));
-    }    
+    }     
 
     /**
      * Display the user's profile form.
@@ -86,7 +89,7 @@ class ProfileController extends Controller
             $query->where('program_title', $request->program);
         }
 
-        $participants = $query->paginate(10);
+        $participants = $query->latest()->paginate(10);
         $programs = Participant::select('program_title')->distinct()->pluck('program_title');
 
         return view('dashboard.material', compact('participants', 'programs'));
@@ -103,32 +106,34 @@ class ProfileController extends Controller
         $participant = Participant::findOrFail($request->participant_id);
 
         if ($request->hasFile('certificate')) {
-            $certificatePath = $request->file('certificate')->store('sertifikat' , 'public');
-            $participant->certificate = ($certificatePath);
+            $file = $request->file('certificate');
+            $filename = $file->getClientOriginalName(); // Tambahkan timestamp agar unik
+            $file->storeAs('certificates', $filename, 'public');
+            $participant->certificate = $filename; // Simpan nama file saja di database
         }
 
         if ($request->hasFile('material')) {
-            $materialPath = $request->file('material')->store('materials' , 'public');
-            $participant->material = ($materialPath);
+            $file = $request->file('material');
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('materials', $filename, 'public');
+            $participant->material = $filename;
         }
 
         $participant->save();
 
-        return redirect()->route('admin.programs.index')->with('success', 'File berhasil diunggah.');
+        return redirect()->route('material.index')->with('success', 'File berhasil diunggah.');
     }
 
     public function downloadFile($type, $filename)
     {
-        $path = '';
-
-        if ($type === 'certificate') {
-            $path = storage_path('app/public/sertifikat/' . $filename);
-        } elseif ($type === 'material') {
-            $path = storage_path('app/public/materials/' . $filename);
-        }
+        $path = match ($type) {
+            'certificate' => storage_path("app/public/certificates/{$filename}"),
+            'material' => storage_path("app/public/materials/{$filename}"),
+            default => abort(404, 'Tipe file tidak valid.'),
+        };
 
         if (!file_exists($path)) {
-            abort(404, 'File tidak ditemukan');
+            abort(404, 'File tidak ditemukan.');
         }
 
         return response()->download($path);

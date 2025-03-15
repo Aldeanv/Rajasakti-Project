@@ -59,4 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot('certificate', 'material');
     }
 
+    public function subscriber()
+    {
+        return $this->hasOne(Subscriber::class, 'email', 'email');
+    }
+
 }

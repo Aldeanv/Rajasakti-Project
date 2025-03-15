@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreSubscriberRequest;
 use App\Http\Requests\UpdateSubscriberRequest;
@@ -72,6 +73,13 @@ class SubscriberController extends Controller
      */
     public function destroy(Subscriber $subscriber)
     {
-        //
+        $user = auth::user();
+
+        if ($user->subscriber) {
+            $user->subscriber?->delete();
+            return redirect()->back()->with('success', 'Anda telah berhenti berlangganan.');
+        }
+    
+        return redirect()->back()->with('error', 'Anda belum berlangganan.');
     }
 }
