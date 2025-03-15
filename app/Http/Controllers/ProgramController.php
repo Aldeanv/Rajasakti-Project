@@ -18,7 +18,7 @@ class ProgramController extends Controller
     {
         return view('main.event', [
             'programs' => Program::search()->latest()->paginate(5),
-            'Hero' => Program::latest()->take(1)->get()
+            'Hero' => Program::oldest()->take(1)->get()
         ]);
     }
 

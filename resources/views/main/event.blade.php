@@ -84,11 +84,10 @@
           </div>
       </form>
           @foreach ($programs as $program)
-          <div class="mycard md:flex py-4 justify-between px-6 border-b-2 border-black">
-              <div class="flex flex-col justify-between min-w-36">
-                  <span></span>
-                  <h2 class="uppercase text-center items-center text-5xl font-semibold text-yellow-400">{{ \Carbon\Carbon::parse($program['date'])->format('d M') }}</h2>
-                  <span></span>
+          <div class="mycard md:flex py-4 px-6 border-b-2 border-black">
+              <div class="flex flex-col justify-center min-w-36">
+                  <h2 class="uppercase text-center items-center text-5xl font-semibold text-yellow-400">{{ \Carbon\Carbon::parse($program['date'])->format('d') }}</h2>
+                  <h2 class="uppercase text-center items-center text-5xl font-semibold text-yellow-400">{{ \Carbon\Carbon::parse($program['date'])->format('M') }}</h2>
               </div>
               <div class="md:pl-2 py-4">
                 <div class="pl-1">
@@ -119,19 +118,20 @@
                   <div class="prose prose-lg max-w-none">
                     {!! Str::limit(strip_tags($program->body), 300, '...') !!}
                   </div>
-                  <div class="flex items-center w-40 justify-between pt-6">
-                      <button class="text-sm font-semibold hover:underline">
+                  <div class="flex items-center w-44 justify-between pt-6">
+                    <button class="mr-2 text-sm px-4 py-2 bg-yellow-500 text-white font-semibold rounded-md shadow-md hover:bg-yellow-600 transition-all">
                         <a href="/registrasi/{{ $program->slug }}">DAFTAR</a>
-                      </button>
-                      <a
-                          class="hover:text-sky-800 hover:font-semibold"
-                          href="/event/{{ $program['slug'] }}"
-                      >learn more</a>
+                    </button>
+                    <a
+                        class="hover:text-sky-800 hover:font-semibold"
+                        href="/event/{{ $program['slug'] }}"
+                    >Selengkapnya</a>
                   </div>
               </div>
           </div>
           @endforeach
       </div>
+      
       {{ $programs->onEachSide(1)->links() }}
   </div>
   {{----- EVENT END -----}}
