@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ParticipantController;
 
 
@@ -47,7 +48,7 @@ Route::post('/registrasi/{program:slug}', [ParticipantController::class, 'store'
    /*
     |--------------------------------------------------------------------------
     | 
-    | Profile edit routes
+    | Profile and subscribers routes
     |
     |--------------------------------------------------------------------------
     */
@@ -58,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/download/{type}/{filename}', [ProfileController::class, 'downloadFile'])->name('user.download');
-
+    Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribers.store');
 });
 
    /*
