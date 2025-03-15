@@ -4,18 +4,12 @@
     </x-navigation-layout>
     <div class="lg:ml-64 shadow-lg p-2 pt-0">
         <div class="flex-col rounded-xl overflow-auto bg-white p-4">
-            <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Buat Event Baru</h2>
+            <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Buat Program Baru</h2>
 
             <!-- Notifikasi -->
             @if(session('error'))
             <div class="bg-red-500 text-white p-3 rounded-lg mb-4 text-center">
                 {{ session('error') }}
-            </div>
-            @endif
-
-            @if(session('success'))
-            <div class="bg-green-500 text-white p-3 rounded-lg mb-4 text-center">
-                {{ session('success') }}
             </div>
             @endif
 
@@ -65,4 +59,6 @@
             </form>
         </div>
     </div>
+
+    <script src="/js/succes.js"></script>
 </x-app-layout>

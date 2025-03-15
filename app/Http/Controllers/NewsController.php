@@ -56,7 +56,7 @@ class NewsController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->back()->with('success', 'Event berhasil dibuat!');
+        return redirect()->back()->with('success', 'Post berhasil dibuat!');
     }
 
     /**

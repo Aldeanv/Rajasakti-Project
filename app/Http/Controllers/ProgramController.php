@@ -66,7 +66,7 @@ class ProgramController extends Controller
         // Panggil event ProgramCreated
         ProgramCreated::dispatch($program);
     
-        return redirect()->back()->with('success', 'Program berhasil ditambahkan.');
+        return redirect()->route('programs.index')->with('success', 'Program berhasil ditambahkan.');
     }
 
 
@@ -104,7 +104,7 @@ class ProgramController extends Controller
         $program = Program::findOrFail($id);
         $program->delete();
 
-        return redirect()->route('programs.index')->with('success', 'event berhasil dihapus.');
+        return redirect()->route('programs.index')->with('success', 'program berhasil dihapus.');
     }
 
     public function admin(Request $request)

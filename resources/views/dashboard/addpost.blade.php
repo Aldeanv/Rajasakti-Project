@@ -43,18 +43,13 @@
                 </div>
 
                 <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg hover:shadow-lg transition-all">
-                    Submit Event
+                    Submit Post
                 </button>
             </form>
         </div>
     </div>
 
     <!-- JavaScript for Image Preview -->
-    <script>
-        function previewImage(event) {
-            var image = document.getElementById("imagePreview");
-            image.src = URL.createObjectURL(event.target.files[0]);
-            image.classList.remove("hidden");
-        }
-    </script>
+    <script src="/js/preview.js"></script>
+    <script src="/js/succes.js"></script>
 </x-app-layout>
