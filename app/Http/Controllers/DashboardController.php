@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Charts\UsersPerMonthChart;
 use App\Charts\ParticipantsPerProgramChart;
 use App\Models\Gallery;
+use App\Models\Subscriber;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,8 @@ class DashboardController extends Controller
         $totalPrograms = Program::count();
         $totalPosts = Post::count();
         $totalImages = Gallery::count();
+        $totalSubscribe = Subscriber::count();
+        $latestsubscriber = Subscriber::latest()->limit(5)->get();
         
         $participantsChart = (new ParticipantsPerProgramChart())->build();
         $usersChart = (new UsersPerMonthChart())->build();
@@ -37,6 +40,8 @@ class DashboardController extends Controller
             'totalPrograms',
             'totalPosts',
             'totalImages',
+            'totalSubscribe',
+            'latestsubscriber',
             'participantsChart',
             'usersChart'
         ));

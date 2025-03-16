@@ -110,6 +110,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('/material', [ProfileController::class, 'admin'])->name('material.index');
     Route::post('/admin/upload', [ProfileController::class, 'uploadFiles'])->name('admin.upload.files');
+
+    Route::get('/subscriber', [SubscriberController::class, 'index'])->name('subscribe');
 });
 
 // Route::get('/regis/{id}', function ($id) {

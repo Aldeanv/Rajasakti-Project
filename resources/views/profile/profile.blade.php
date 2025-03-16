@@ -9,7 +9,9 @@
             </div>
             <div class="text-center md:text-right">
                 @if ($user->subscriber)
-                    <p class="text-sm text-gray-700">Berlangganan sejak {{ $user->subscriber->created_at->translatedFormat('d F Y') }}</p>
+                    <p class="text-sm text-gray-700">Berlangganan sejak 
+                        {{ \Carbon\Carbon::parse($user->subscriber->created_at)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}
+                    </p>
                     <form action="{{ route('unsubscribe') }}" method="POST" class="mt-4">
                         @csrf
                         @method('DELETE')

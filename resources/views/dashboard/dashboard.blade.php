@@ -50,6 +50,15 @@
                     </svg>                                           
                 </div>
             </div>
+            <div class="p-4 bg-white rounded-lg shadow-md border-l-4 border-purple-500">
+                <h3 class="text-lg font-semibold">Total Subscriber</h3>
+                <div class="flex justify-between">
+                    <p class="text-3xl text-blue-600 pt-5">{{ $totalSubscribe }}</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                    </svg>                                                              
+                </div>
+            </div>
         </div>
 
         <!-- Charts -->
@@ -64,7 +73,7 @@
         
         <!-- News Users -->
         <div class="mt-6 p-4 bg-white rounded-lg shadow-md">
-            <h3 class="text-lg font-semibold mb-4">News Users</h3>
+            <h3 class="text-lg font-semibold mb-4">Latest Users</h3>
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="border-b">
@@ -114,6 +123,31 @@
                                     <span class="text-gray-500">Belum Ada</span>
                                 @endif
                             </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center p-4 text-gray-500">No recent registrations</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+                <!-- Latest Participants -->
+        <div class="mt-6 p-4 bg-white rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-4">Latest Subscriber</h3>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b">
+                        <th class="p-2">Email</th>
+                        <th class="p-2">Tanggal Subscriber</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($latestsubscriber as $subscriber)
+                        <tr class="border-b">
+                            <td class="p-2">{{ $subscriber->email }}</td>
+                            <td class="py-4 px-6 text-gray-500">{{ \Carbon\Carbon::parse($subscriber->created_at)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</td>
                         </tr>
                     @empty
                         <tr>
