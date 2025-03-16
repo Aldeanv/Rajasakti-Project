@@ -30,10 +30,6 @@ Silakan tunjukkan QR Code ini saat acara untuk melakukan registrasi.
 - Harap membawa peralatan yang diperlukan untuk mendukung partisipasi Anda dalam acara.
 - Jika mengalami kendala atau memiliki pertanyaan lebih lanjut, silakan hubungi panitia.
 
-<x-mail::button :url="route('event.detail', $participant->program_title)">
-Lihat Detail Acara
-</x-mail::button>
-
 Kami sangat menantikan kehadiran Anda di acara ini.  
 Jika ada pertanyaan, jangan ragu untuk menghubungi kami.
 
