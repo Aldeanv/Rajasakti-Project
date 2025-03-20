@@ -6,8 +6,10 @@ use App\Models\Program;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\ProgramCreated;
-use App\Http\Requests\StoreProgramRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateProgramRequest;
+
+
 
 class ProgramController extends Controller
 {
@@ -99,13 +101,17 @@ class ProgramController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy($id)
-    {
-        $program = Program::findOrFail($id);
-        $program->delete();
-
-        return redirect()->route('programs.index')->with('success', 'program berhasil dihapus.');
-    }
+     public function destroy($id)
+     {
+         $program = Program::findOrFail($id);
+         $program->delete();
+     
+         // Reset auto-increment ke nilai ID tertinggi saat ini
+         DB::statement('ALTER TABLE programs AUTO_INCREMENT = 1');
+     
+         return redirect()->route('programs.index')->with('success', 'Program berhasil dihapus.');
+     }
+     
 
     public function admin(Request $request)
     {

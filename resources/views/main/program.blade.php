@@ -85,8 +85,7 @@
         </div>
         <div class="flex mt-5 justify-between">
           <div>
-            <h3 class="text-2xl font-bold text-slate-600">Description</h3>
-            <div class="prose prose-lg max-w-none text-justify">
+            <div class="prose prose-lg max-w-none text-justify indent-3">
               {!! htmlspecialchars_decode($program->body) !!}
             </div>          
           </div>
