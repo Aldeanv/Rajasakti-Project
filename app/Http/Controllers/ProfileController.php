@@ -79,21 +79,27 @@ class ProfileController extends Controller
     public function admin(Request $request)
     {
         $query = Participant::query();
-
-        if ($request->has('search')) {
-            $query->where('nama', 'like', '%' . $request->search . '%')
+    
+        // Filter berdasarkan nama atau NIP
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
                   ->orWhere('nip', 'like', '%' . $request->search . '%');
+            });
         }
-
-        if ($request->has('program') && $request->program !== '') {
+    
+        // Filter berdasarkan program
+        if ($request->filled('program')) {
             $query->where('program_title', $request->program);
         }
-
+    
+        // Ambil daftar peserta dan program untuk dropdown
         $participants = $query->latest()->paginate(10);
         $programs = Participant::select('program_title')->distinct()->pluck('program_title');
-
+    
         return view('dashboard.material', compact('participants', 'programs'));
     }
+    
 
     public function uploadFiles(Request $request)
     {
