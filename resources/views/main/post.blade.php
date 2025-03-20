@@ -38,28 +38,6 @@
               </div>
           </div>
       </div>
-
-      <!-- Share Buttons -->
-      <div class="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <div class="flex space-x-4">
-              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank"
-                  class="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition">
-                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12.07c0-5.52-4.48-10-10-10s-10 4.48-10 10c0 4.99 3.66 9.12 8.43 9.87v-6.99h-2.54v-2.88h2.54v-2.18c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.19 2.24.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.88h-2.34v6.99C18.34 21.19 22 17.06 22 12.07z"/></svg>
-                  Facebook
-              </a>
-              <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
-                  class="flex items-center gap-2 px-5 py-3 bg-blue-400 text-white rounded-lg shadow-lg hover:bg-blue-500 transition">
-                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.59-2.46.7a4.27 4.27 0 0 0 1.88-2.37c-.83.49-1.74.83-2.7 1a4.27 4.27 0 0 0-7.26 3.9 12.13 12.13 0 0 1-8.8-4.46 4.29 4.29 0 0 0 1.32 5.7c-.68-.02-1.3-.21-1.86-.5v.05a4.29 4.29 0 0 0 3.43 4.2 4.26 4.26 0 0 1-1.86.07 4.28 4.28 0 0 0 4 3c-2.7 2.1-6.13 2.9-9.42 2.4A12.1 12.1 0 0 0 7.29 21c7.88 0 12.2-6.53 12.2-12.2v-.56c.85-.6 1.6-1.36 2.2-2.24z"/></svg>
-                  Twitter
-              </a>
-              <a href="https://api.whatsapp.com/send?text={{ urlencode(url()->current()) }}" target="_blank"
-                  class="flex items-center gap-2 px-5 py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition">
-                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 1.9A9.93 9.93 0 0 0 2 11.92a9.84 9.84 0 0 0 1.44 5.2l-1.57 5.56 5.7-1.51a10.06 10.06 0 0 0 4.47 1.08 10.05 10.05 0 0 0 10-10A9.94 9.94 0 0 0 12 1.9zM7.5 14.86c-.47.27-1.11.58-1.64.45a8.32 8.32 0 0 1-2.42-1.08 8.08 8.08 0 0 1-2.44-2.3 8.15 8.15 0 0 1 2.25-2.56A8.21 8.21 0 0 1 12 5.94c4.5 0 8.15 3.66 8.15 8.16s-3.65 8.15-8.15 8.15c-1.48 0-2.87-.4-4.1-1.12l-.45-.26-.5.13-3.52.94.94-3.52.13-.5-.26-.45a8.16 8.16 0 0 1-1.12-4.1z"/></svg>
-                  WhatsApp
-              </a>
-          </div>
-          <a href="/news" class="text-gray-700 hover:text-gray-900">⬅ Kembali ke Berita</a>
-      </div>
   </div>
   {{----- NEWS END -----}}
   <x-email></x-email>
