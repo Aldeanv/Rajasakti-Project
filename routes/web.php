@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
@@ -112,6 +113,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/admin/upload', [ProfileController::class, 'uploadFiles'])->name('admin.upload.files');
 
     Route::get('/subscriber', [SubscriberController::class, 'index'])->name('subscribe');
+
+    Route::get('/payment', [PaymentController::class, 'index'])->name('Payment');
 });
 
 // Route::get('/regis/{id}', function ($id) {
