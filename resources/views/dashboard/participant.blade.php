@@ -46,6 +46,7 @@
                         <th class="py-4 px-6 text-center">Program</th>
                         <th class="py-4 px-6 text-center">Tanggal Daftar</th>
                         <th class="py-4 px-6 text-center">Barcode</th>
+                        <th class="py-4 px-6 text-center">Status</th>
                         <th class="py-4 px-6 text-center">Bukti Pembayaran</th>
                     </tr>
                 </thead>
@@ -68,6 +69,7 @@
                                 <span class="text-gray-500">Belum Ada</span>
                             @endif
                         </td>
+                        <td class="py-4 px-6 text-gray-700 text-center">{{ $participant->approved ? 'Disetujui' : 'Belum Disetujui' }}</td>
                         <td class="py-4 px-6">
                             @if ($participant->bukti_pembayaran)
                                 <a href="{{ asset('storage/' . $participant->bukti_pembayaran) }}" target="_blank" class="text-blue-500 underline hover:text-blue-700 transition duration-300 ease-in-out">Lihat</a>

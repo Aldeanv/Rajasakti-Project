@@ -114,7 +114,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('/subscriber', [SubscriberController::class, 'index'])->name('subscribe');
 
-    Route::get('/payment', [PaymentController::class, 'index'])->name('Payment');
+    Route::get('/payment', [ParticipantController::class, 'payment'])->name('Payment');
+    Route::put('/participants/{participant}/approve', [ParticipantController::class, 'approve'])->name('participant.approve');
 });
 
 // Route::get('/regis/{id}', function ($id) {

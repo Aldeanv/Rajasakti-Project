@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('bukti_pembayaran')->nullable();
             $table->string('certificate')->nullable();
             $table->string('material')->nullable();
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }

@@ -10,9 +10,6 @@ use App\Exports\ParticipantsExport;
 use App\Imports\ParticipantsImport;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
 
 
@@ -118,7 +115,7 @@ class ParticipantController extends Controller
                 }
 
                 // Simpan data peserta
-                $participant = Participant::create([
+                Participant::create([
                     'program_title' => $program->title,
                     'nama' => $request->nama,
                     'jenis_kelamin' => $request->jenis_kelamin,
@@ -131,11 +128,8 @@ class ParticipantController extends Controller
                     'email' => $request->email,
                     'bukti_pembayaran' => $buktiPembayaranPath,
                     'registration_type' => 'perorangan',
+                    'approved' => false,
                 ]);
-
-                // Kirim email dengan QR Code
-                Mail::to($participant->email)->queue(new RegistrationSuccess($participant));
-
 
                 return redirect()->route('participant.create', ['program' => $program->slug])
                     ->with('success', 'Pendaftaran perorangan berhasil untuk program ' . $program->title);
@@ -199,5 +193,34 @@ class ParticipantController extends Controller
     public function destroy(Participant $participant)
     {
         //
+    }
+
+    public function approve($id)
+    {
+        Participant::where('approved', false)
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        // Ambil peserta berdasarkan ID
+        $participant = Participant::findOrFail($id);
+
+        // Update status peserta menjadi disetujui
+        $participant->approved = true;
+        $participant->save();
+
+        // Kirim email konfirmasi pendaftaran
+        Mail::to($participant->email)->queue(new RegistrationSuccess($participant));
+
+        return redirect()->back()->with('success', 'Peserta berhasil disetujui dan email konfirmasi telah dikirim.');
+    }
+
+    public function payment(Request $request)
+    {
+        $participants = Participant::where('approved', false)
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        return view('dashboard.payment', compact('participants'));
+
     }
 }

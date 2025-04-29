@@ -12,7 +12,7 @@ class Participant extends Model
     protected $fillable = [
         'program_title','nama', 'jenis_kelamin', 'nip', 'dinas', 'jabatan',
         'pemda', 'alamat', 'telepon', 'email', 'bukti_pembayaran', 
-        'qrcode_path', 'certificate', 'material'
+        'qrcode_path', 'certificate', 'material', 'approved'
     ];
 
     public function program()
