@@ -116,6 +116,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('/payment', [ParticipantController::class, 'payment'])->name('Payment');
     Route::put('/participants/{participant}/approve', [ParticipantController::class, 'approve'])->name('participant.approve');
+    Route::delete('/participant/{id}', [ParticipantController::class, 'destroy'])->name('participant.destroy');
 });
 
 // Route::get('/regis/{id}', function ($id) {

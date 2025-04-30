@@ -10,6 +10,7 @@ use App\Exports\ParticipantsExport;
 use App\Imports\ParticipantsImport;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateParticipantRequest;
 
 
@@ -190,10 +191,20 @@ class ParticipantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Participant $participant)
+    public function destroy($id)
     {
-        //
+        $participant = Participant::findOrFail($id);
+    
+        // Hapus file bukti pembayaran jika ada
+        if ($participant->bukti_pembayaran && Storage::exists('public/' . $participant->bukti_pembayaran)) {
+            Storage::delete('public/' . $participant->bukti_pembayaran);
+        }
+    
+        $participant->delete();
+    
+        return redirect()->back()->with('success', 'Peserta berhasil dihapus.');
     }
+    
 
     public function approve($id)
     {

@@ -35,19 +35,27 @@
                             @endif
                         </td>
                         <td class="py-4 px-6 text-gray-700 text-center">{{ $participant->approved ? 'Disetujui' : 'Belum Disetujui' }}</td>
-                        <td class="py-4 px-6">
+                        <td class="py-4 px-6 space-y-2">
                             @if (!$participant->approved)
                                 <form method="POST" action="{{ route('participant.approve', $participant->id) }}">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out">
+                                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
                                         Setujui
                                     </button>
                                 </form>
                             @else
                                 <span class="text-green-500">Disetujui</span>
                             @endif
-                        </td>
+                        
+                            <form method="POST" action="{{ route('participant.destroy', $participant->id) }}" onsubmit="return confirm('Yakin ingin menghapus peserta ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -60,6 +68,3 @@
         </div>
     </div>
 </x-app-layout>
-
-
-buat agar halaman payment hanya menampilkan daftar peserta yg membutuhkan persetujuan saja

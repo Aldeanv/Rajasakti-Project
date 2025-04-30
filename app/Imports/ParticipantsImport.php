@@ -36,11 +36,11 @@ class ParticipantsImport implements ToModel, WithHeadingRow
             'bukti_pembayaran' => $this->buktiPembayaranPath,
             // 'qrcode_path' => $qrCodeFileName, // Simpan path QR Code ke database
             'registration_type' => 'kelompok',
+            'approved'            => false,
         ]);
 
-        // Kirim email ke peserta
-        Mail::to($participant->email)->send(new RegistrationSuccess($participant));
-
+        // // Kirim email ke peserta
+        // Mail::to($participant->email)->send(new RegistrationSuccess($participant));
         return $participant;
     }
 }
